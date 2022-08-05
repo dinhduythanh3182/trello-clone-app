@@ -15,21 +15,21 @@ const initialData = {
                             boardId : 'board-1',
                             columnId : 'column-1',
                             title : 'Title of card 1',
-                            cover : null
+                            cover : "https://kjvc.com.vn/uploads/plugin/news/2018/07/1611805120-8126.jpg"
                         },
                         {
                             id : 'card-2',
                             boardId : 'board-1',
                             columnId : 'column-1',
                             title : 'Title of card 2',
-                            cover : null
+                            cover : "https://kjvc.com.vn/uploads/plugin/news/2018/07/1611805120-8126.jpg"
                         },
                         {
                             id : 'card-3',
                             boardId : 'board-1',
                             columnId : 'column-1',
                             title : 'Title of card 3',
-                            cover : null
+                            cover : "https://kjvc.com.vn/uploads/plugin/news/2018/07/1611805120-8126.jpg"
                         },
                         {
                             id : 'card-4',
@@ -37,7 +37,8 @@ const initialData = {
                             columnId : 'column-1',
                             title : 'Title of card 4',
                             cover : null
-                        }
+                        },
+                        
                     ]
                 },
                 {
@@ -88,7 +89,7 @@ const initialData = {
                             boardId : 'board-1',
                             columnId : 'column-1',
                             title : 'Title of card 9',
-                            cover : "https://kjvc.com.vn/uploads/plugin/news/2018/07/1611805120-8126.jpg"
+                            cover : "https://kjvc.com.vn/uploads/plugin/news/2018/07/1611805120-8126.jpg",
                         },
                     ]
                 }

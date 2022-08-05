@@ -3,6 +3,7 @@
 $bg-bold-color : #005c91;
 
 .navbar-app{
+    height: $navbar-app-height;
     display: flex;
     align-items: center;
     padding-left: $gap;

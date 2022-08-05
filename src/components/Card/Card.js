@@ -2,10 +2,10 @@ import './Card.scss'
 
 function Card({card}) {
     return ( 
-        <li className="card-item">
-            {card.cover && <img src={card.cover} alt="" /> }
+        <div className="card-item">
+            {card.cover && <img className="card-cover" draggable="false" src={card.cover} alt="" /> }
             {card.title}
-        </li>
+        </div>
      );
 }
 
