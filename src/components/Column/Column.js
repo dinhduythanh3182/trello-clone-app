@@ -1,22 +1,18 @@
+
 import './Column.scss'
-import Task from 'components/Task/Task'
-function Column() {
+import Card from 'components/Card/Card'
+import { sortOrder } from 'ultils/sort';
+
+function Column({column}) {
+    const cards = sortOrder(column.cards,column.cardOrder,'id')
     return ( 
         <div className="column">
-              <header>
-                  Brain
-              </header>
-              <ul className="task-list">
-                <Task/>           
-                <li className="task-item">Add what you like to notice</li>
-                <li className="task-item">Add what you like to notice</li>
-                <li className="task-item">Add what you like to notice</li>
-                <li className="task-item">Add what you like to notice</li>
-                <li className="task-item">Add what you like to notice</li>
-                <li className="task-item">Add what you like to notice</li>
-                <li className="task-item">Add what you like to notice</li>
-              </ul>
-              <footer>Another card</footer>
+            <header>{column.title}</header>
+            <ul className="card-list">
+                {cards.map((card,index)=> <Card key={index} card={card}/>)}           
+                
+            </ul>
+            <footer>Another card</footer>
           </div>
      );
 }
