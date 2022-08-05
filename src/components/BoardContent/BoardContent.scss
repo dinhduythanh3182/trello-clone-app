@@ -2,6 +2,7 @@
 
 
 .board-content{
+    display: flex;
     height: $board-content-height;
     overflow-x: auto;
     overflow-y: hidden;
@@ -25,5 +26,22 @@
       background-color: rgba(150, 150, 200, 0.1);
       border: 1px dashed #abc;
       margin: 5px 45px 5px 5px;
+    }
+    .add-new-column{
+      display: block;
+      width: $column-width;
+      height: fit-content;
+      font-size: 1rem;
+      color: white;
+      margin-left: $gap;
+      padding: 6px 12px;
+      background-color: rgba(255, 255, 255, 0.2);
+      border-radius:  $column-border-radius;
+      cursor: pointer;
+      user-select: none;
+      transition: all 0.2s linear;
+      &:hover{
+        background-color: rgba(255, 255, 255, 0.3);
+      }
     }
   }
