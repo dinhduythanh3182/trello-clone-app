@@ -1,13 +1,14 @@
 @import './_settings.scss';
 
+$column-height : calc( #{$board-content-height} - #{$gap*2});
+
  .column{
+  height: $column-height ;
     flex: 0 0 auto;
     width: 300px;
     font-size: 1.1rem;
     margin-bottom: $gap;
-    &:not(:first-child){
-      margin-left: $gap;
-    }
+    margin-left: $gap;
     > * {
       background-color: $bg-list-color;
       color: black;
@@ -31,10 +32,9 @@
       border-bottom-left-radius: $column-border-radius ;
       border-bottom-right-radius: $column-border-radius ;
     }
-    ul.card-list{
-      list-style: none;
+    .card-list{
       margin : 0;
-      max-height: calc(100% - #{$column-footer-height} - #{$column-header-height});
+      max-height: calc(#{$column-height} - #{$column-footer-height} - #{$column-header-height});
       overflow-y: auto;
       &::-webkit-scrollbar {
         -webkit-appearance: none;
@@ -49,6 +49,22 @@
         border-radius: 0;
         background-color: rgba(0, 0, 0, 0);
       }
-     
+      .card-ghost {
+        transition: transform 0.18s ease;
+        transform: rotateZ(5deg)
+      }
+      
+      .card-ghost-drop{
+        transition: transform 0.18s ease-in-out;
+        transform: rotateZ(0deg)
+      }
+      .card-drop-preview {
+        background-color: rgba(150, 150, 200, 0.1);
+        border: 1px dashed #abc;
+        margin: 5px;
+      }
+    }
+    .column-drag-handle{
+      cursor: pointer;
     }
   }

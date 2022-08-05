@@ -8,9 +8,8 @@ body{
   line-height: 1.3rem;
 }
 .container {
-  display: grid;
-  grid-template-rows: 40px 50px 1fr;
   height: 100vh;
   font-size: 28px;
+  overflow : hidden;
   background-color: $bg-color;
 }
