@@ -4,18 +4,16 @@ import './Column.scss'
 import Card from 'components/Card/Card'
 import { sortOrder } from 'utils/sort';
 
-function Column({column}) {
+function Column({column,onCardDrop}) {
     const cards = sortOrder(column.cards,column.cardOrder,'id')
-    const onCardDrop = (rs) => {
-        console.log(rs);
-    }
+    
     return ( 
         <div className="column">
             <header className="column-drag-handle">{column.title}</header>
             <div className="card-list">
                 <Container
                     groupName="col"
-                    onDrop={onCardDrop}
+                    onDrop={dropResult=>onCardDrop(column.id,dropResult)}
                     getChildPayload={index => cards[index]}
                     dragClass="card-ghost"
                     dropClass="card-ghost-drop"                                    
@@ -34,7 +32,11 @@ function Column({column}) {
                 </Container>    
                 
             </div>
-            <footer>Another card</footer>
+            <footer >
+                <div className="footer-actions">
+                    <i className="fa-solid fa-plus icon"></i>Another card
+                </div>
+            </footer>
           </div>
      );
 }
