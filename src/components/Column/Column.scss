@@ -1,0 +1,54 @@
+@import './_settings.scss';
+
+ .column{
+    flex: 0 0 auto;
+    width: 300px;
+    font-size: 1.1rem;
+    margin-bottom: $gap;
+    &:not(:first-child){
+      margin-left: $gap;
+    }
+    > * {
+      background-color: $bg-list-color;
+      color: black;
+      padding: 0 8px;
+    }
+    header{
+      height: $column-header-height;
+      padding-left: 10px;
+      line-height: $column-header-height;
+      font-size: 16px;
+      font-weight: bold;
+      border-top-left-radius: $column-border-radius ;
+      border-top-right-radius: $column-border-radius ;
+    }
+    footer{
+      height: $column-footer-height;
+      padding-left: 10px;
+      line-height: $column-footer-height;
+      font-size: 16px;
+      font-weight: bold;
+      border-bottom-left-radius: $column-border-radius ;
+      border-bottom-right-radius: $column-border-radius ;
+    }
+    ul.task-list{
+      list-style: none;
+      margin : 0;
+      max-height: calc(100% - #{$column-footer-height} - #{$column-header-height});
+      overflow-y: auto;
+      &::-webkit-scrollbar {
+        -webkit-appearance: none;
+        width: 10px;
+      }
+      &::-webkit-scrollbar-thumb {
+        background-color: rgba(0, 0, 0, 0.0);
+        border-left : 5px solid rgba(0, 0, 0, 0.30);
+      }
+      
+      &::-webkit-scrollbar-track {
+        border-radius: 0;
+        background-color: rgba(0, 0, 0, 0);
+      }
+     
+    }
+  }
