@@ -1,0 +1,11 @@
+@import './_settings.scss';
+
+$bg-bold-color : #005c91;
+
+.navbar-app{
+    display: flex;
+    align-items: center;
+    padding-left: $gap;
+    font-size: 1.5rem;
+    background-color: $bg-bold-color;
+  }
