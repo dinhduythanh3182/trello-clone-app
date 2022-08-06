@@ -6,7 +6,6 @@
     height: $board-content-height;
     overflow-x: auto;
     overflow-y: hidden;
-    // margin: 0 $gap $gap;
     &::-webkit-scrollbar {
       -webkit-appearance: none;
     }
@@ -27,21 +26,75 @@
       border: 1px dashed #abc;
       margin: 5px 45px 5px 5px;
     }
+    .add-column-container{
+      height:fit-content;
+      min-width: $column-width;
+    }
     .add-new-column{
       display: block;
-      width: $column-width;
       height: fit-content;
       font-size: 1rem;
       color: white;
-      margin-left: $gap;
+      margin: 0 $gap;
       padding: 6px 12px;
       background-color: rgba(255, 255, 255, 0.2);
       border-radius:  $column-border-radius;
       cursor: pointer;
       user-select: none;
       transition: all 0.2s linear;
+      &.show{
+        opacity: 1;
+        height: fit-content;
+      }
       &:hover{
         background-color: rgba(255, 255, 255, 0.3);
+      }
+    }
+    .enter-new-column{
+      display: block;
+      width: $column-width;
+      height: 0;
+      opacity: 0;
+      margin: 0 $gap;
+      background-color: $bg-list-color;
+      border-radius:  $column-border-radius;
+      padding: 4px;
+      transition: all 0.2s ease-in-out;
+      &.in.show{
+        height: 72px;
+        opacity: 1;
+      }
+      .input-enter{
+        display: block;
+        width: calc(#{$column-width} - 25px);
+        padding: 8px 10px;
+        border-radius:  $column-border-radius;
+        border: 2px solid #0079bf;
+        outline: none;
+      }
+      .add-column-btn{
+        height: 32px;
+        margin: 4px $gap 0 0;
+        padding: 4px 14px;
+        font-weight: bold;
+        color: #fff;
+        border: none;
+        background-color: #42526e;
+        min-height: 32px;
+        border-radius: $column-border-radius;
+        transition: all 0.2s linear;
+        cursor: pointer;
+        &:hover{
+          background-color: $bg-color;
+        }
+      }
+      .cancel-btn i{
+        color: #42526e;
+        font-size: 16px;
+        cursor: pointer;
+        &:hover{
+          color: #39465e;
+        }
       }
     }
   }
