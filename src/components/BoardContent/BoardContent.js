@@ -44,6 +44,7 @@ function BoardContent() {
         newColumns = applyDrag(newColumns,dropResult)
         newBoard.columnOrder = newColumns.map(column=>column.id)
         newBoard.columns = newColumns
+        console.log(newColumns);
         setColumns(newColumns)
         setBoard(newBoard)
     }
@@ -85,6 +86,21 @@ function BoardContent() {
             setNewColumnTitle('')
         }       
     }
+    const onUpdateColumn =(newColumnUpdate)=>{
+        const idColumn = newColumnUpdate.id
+        let newColumns = [...columns]
+        const indexColumn = newColumns.findIndex(column=>column.id === idColumn)
+        if(newColumnUpdate._deleted){
+            newColumns = newColumns.filter(column=>column.id !== idColumn)
+        }
+        else{
+            newColumns.splice(indexColumn, 1, newColumnUpdate)
+        }   
+        let newBoard = Object.assign({},board)
+        newBoard.columns= newColumns
+        setColumns(newColumns)
+        setBoard(newBoard)
+    }
     return ( 
         <div className="board-content"
             onClick = {handleCloseAddCol}
@@ -103,7 +119,7 @@ function BoardContent() {
                 >
                 {columns.map((column,index)=> 
                 <Draggable key={index} >
-                    <Column  column={column} onCardDrop={onCardDrop}/>
+                    <Column  column={column} onCardDrop={onCardDrop} onUpdateColumn={onUpdateColumn}/>
                 </Draggable>
                 )}
             </Container>
