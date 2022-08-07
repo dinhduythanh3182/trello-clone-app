@@ -44,7 +44,6 @@ function BoardContent() {
         newColumns = applyDrag(newColumns,dropResult)
         newBoard.columnOrder = newColumns.map(column=>column.id)
         newBoard.columns = newColumns
-        console.log(newColumns);
         setColumns(newColumns)
         setBoard(newBoard)
     }
