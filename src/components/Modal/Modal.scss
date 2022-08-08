@@ -1,23 +1,23 @@
 @import './_settings.scss';
 .modal-container{
-    z-index: 10000;
+    z-index: 100000;
     position: fixed;
     background-color: rgba(68, 63, 63, 0.5);
     inset: 0;
     transition: all 0.2s linear;
     animation: show .3s linear;
-    .modal{
+    .modal-content{
         position: absolute;
         top: 15%;
         left: 50%;
-        width: 500px;
+        width: 400px;
         height: fit-content;
         transform: translateX(-50%);
         box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.8);
         border-radius: $card-border-radius;
         animation: showModal .3s linear;
         transition: all 0.2s linear;
-        .modal-header{
+        .modal-content-header{
             padding: 10px;
             margin: 0;
             height: 40px;
@@ -29,30 +29,30 @@
             border-top-left-radius: $card-border-radius;
             border-top-right-radius: $card-border-radius;
         }
-        .modal-content{
+        .modal-content-body{
             background-color: white;
             height: 150px;
             padding: 10px;
         }
-        .modal-footer{
+        .modal-content-footer{
             display: flex;
             align-items: center;
             justify-content: flex-end;
             padding: 10px;
             margin: 0;
-            height: 30px;
+            height: 50px;
             background-color: rgb(198, 197, 197);
             color: white;
-            font-size: 16px;
+            font-size: 13px;
             font-weight: bold;
             cursor: default;
             border-bottom-left-radius: $card-border-radius;
             border-bottom-right-radius: $card-border-radius;
-            .btn{
+            .modal-content-btn{
                 margin-left: 20px;
                 outline: none;
                 border : none;
-                padding: 6px 12px;
+                padding: 0px 12px;
                 border-radius:3px;
                 color: white;
                 cursor: pointer;
@@ -60,7 +60,7 @@
                 &.cancel{
                     background-color: rgb(243, 58, 58);
                     &:hover{
-                        background-color: lighten(rgb(243, 58, 58), 5);
+                        background-color: lighten(rgb(237, 78, 78), 5);
                     }
                 }
                 &.confirm{

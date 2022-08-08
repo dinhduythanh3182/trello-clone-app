@@ -6,18 +6,18 @@ function Modal(props) {
 
     return ( 
         <div className="modal-container">
-            <div className="modal">
-                <header className="modal-header">{title}</header>
-                <div className="modal-content">
+            <div className="modal-content">
+                <header className="modal-content-header">{title}</header>
+                <div className="modal-content-body">
                     {content}
                 </div>
-                <footer className="modal-footer">
-                    <button className="btn cancel" 
+                <footer className="modal-content-footer">
+                    <button className="modal-content-btn cancel" 
                             onClick={toggleConfirmModal}
                     >
                         Cancel
                     </button>
-                    <button className="btn confirm"
+                    <button className="modal-content-btn confirm"
                         onClick={onConfirmModal}
                     >
                         Confirm
