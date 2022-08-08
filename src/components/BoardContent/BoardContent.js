@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { Container, Draggable } from 'react-smooth-dnd';
-import { isEmpty } from 'lodash'
+import { isEmpty, cloneDeep } from 'lodash'
 
 import { sortOrder } from 'utils/sort';
 import { applyDrag } from 'utils/dragDrop'
@@ -18,7 +18,7 @@ function BoardContent() {
     const newColumnInputRef = useRef(null)
     const boardContentRef = useRef(null)
     const addColumnRef = useRef(null)
-
+    // fake call API
     useEffect(()=>{
         const boardFromDB = initialData.boards.find(board=>board.id === 'board-1');
         if(boardFromDB){
@@ -44,7 +44,6 @@ function BoardContent() {
         newColumns = applyDrag(newColumns,dropResult)
         newBoard.columnOrder = newColumns.map(column=>column.id)
         newBoard.columns = newColumns
-        console.log(newColumns);
         setColumns(newColumns)
         setBoard(newBoard)
     }
@@ -101,6 +100,7 @@ function BoardContent() {
         setColumns(newColumns)
         setBoard(newBoard)
     }
+   
     return ( 
         <div className="board-content"
             onClick = {handleCloseAddCol}
@@ -118,9 +118,13 @@ function BoardContent() {
                 }}
                 >
                 {columns.map((column,index)=> 
-                <Draggable key={index} >
-                    <Column  column={column} onCardDrop={onCardDrop} onUpdateColumn={onUpdateColumn}/>
-                </Draggable>
+                    <Draggable key={index} >
+                        <Column  column={column} 
+                            onCardDrop={onCardDrop} 
+                            onUpdateColumn={onUpdateColumn} 
+                            boardContentRef={boardContentRef}
+                        />
+                    </Draggable>
                 )}
             </Container>
             <div className="add-column-container"
@@ -135,7 +139,7 @@ function BoardContent() {
                 {(hasTransitionedIn || isColumnFormOpen) && <div className={`enter-new-column ${hasTransitionedIn && 'in'} ${ isColumnFormOpen && 'show'}`}>
                         <input type="text" 
                                 placeholder='Enter column title'
-                                className="input-enter"
+                                className="input-enter-new-col"
                                 ref={newColumnInputRef}
                                 value={newColumnTitle}
                                 onKeyDown={e=>
@@ -143,7 +147,7 @@ function BoardContent() {
                                 }
                                 onChange={e=>setNewColumnTitle(e.target.value)}
                         />
-                        <button className="add-column-btn"
+                        <button className="add-btn"
                                 onClick={addNewColumn}
                         >
                                 Add list
@@ -152,7 +156,7 @@ function BoardContent() {
                                 onClick={handleToggleAddColumn}
                         >
                                 <i className="fa-solid fa-x icon"></i>
-                            </span>
+                        </span>
                 </div>}
             </div>
         </div>

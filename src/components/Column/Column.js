@@ -1,7 +1,6 @@
 import { Container, Draggable } from 'react-smooth-dnd';
-import { useState, useEffect } from 'react'
-import Tippy from '@tippyjs/react/headless'; // different import path!
-
+import { useState, useEffect, useRef } from 'react'
+import { cloneDeep } from 'lodash'
 
 import MenuDropdown from 'components/MenuDropdown/MenuDropDown';
 import './Column.scss'
@@ -10,17 +9,44 @@ import { sortOrder } from 'utils/sort';
 import Modal from 'components/Modal/Modal'
 import {selectInlineTittle, handleColumnTitleOnEnter} from 'utils/handleContentEditable'
 
-function Column({column,onCardDrop,onUpdateColumn}) {
+function Column(props) {
+    const {column,onCardDrop,onUpdateColumn,boardContentRef}= props
     const [showModal,setShowModal] = useState(false)
     const [columnTitle,setColumnTitle] = useState(column.title)
+    const [isCardFormOpen,setIsCardFormOpen] = useState(false)
+    const [cardTitle,setCardTitle] = useState("")
+
+    const newCardInputRef = useRef(null)
+    const addCardBtnRef = useRef(null)
     const cards = sortOrder(column.cards,column.cardOrder,'id')
+    
     useEffect(()=>{
         setColumnTitle(column.title)
     },[column.title])
 
+    useEffect(() => {
+        if(isCardFormOpen && newCardInputRef.current){
+            newCardInputRef.current.focus()
+            newCardInputRef.current.select()
+        }
+    },[isCardFormOpen])
+    
+    useEffect(() => {
+        boardContentRef.current.addEventListener('click',(e)=>{
+            if(e.target.closest('.add-new-card-container')!==document.querySelector(".add-new-card-container")){
+                setIsCardFormOpen(false)
+            }
+        })
+    },[])
+
+    const handleToggleAddCard = (e)=>{
+        setIsCardFormOpen(prev=>!prev)
+    }
+
     const toggleConfirmModal = () =>{
         setShowModal(prev=>!prev)
     }
+
     const onConfirmModal = () => {
         const newColumn = {
             ...column,
@@ -29,9 +55,11 @@ function Column({column,onCardDrop,onUpdateColumn}) {
         onUpdateColumn(newColumn)
         toggleConfirmModal()
     }
+
     const handleColumnTitleChange = (e) => {
         setColumnTitle(e.target.value)
     }
+
     const handleColumnTitleBlur = (e) => {
         const newColumn = {
             ...column,
@@ -39,6 +67,34 @@ function Column({column,onCardDrop,onUpdateColumn}) {
         }
         onUpdateColumn(newColumn)
     }
+
+    const addNewCard = () => {
+        if(cardTitle.trim()){
+            let newCard = {
+                id : Math.random(),
+                boardId : column.boardId,
+                columnId : column.id,
+                title : cardTitle.trim(),
+                cover : null,
+            }
+            let newColumn = cloneDeep(column)
+            newColumn.cards.push(newCard)
+            newColumn.cardOrder.push(newCard.id)
+            onUpdateColumn(newColumn)
+            let addCardBtn = addCardBtnRef.current
+            if (addCardBtn) {
+                console.log("hi");
+                addCardBtn.scrollIntoView({
+                  behavior: 'smooth',
+                  block: 'nearest',
+                  inline: "end"
+                })
+              }
+            setCardTitle("")
+        }
+        newCardInputRef.current.focus()
+    }
+
     return ( 
         <div className="column">
             <header className="column-drag-handle">
@@ -54,21 +110,12 @@ function Column({column,onCardDrop,onUpdateColumn}) {
                         onMouseDown={e=>e.preventDefault()} //Prevent select title when drag column
                     />
                 </div>
-                <Tippy
-                    delay= {[0,800]}
-                    duration = {300}
-                    placement= 'bottom'
-                    hideOnClick={true}
-                    trigger="click"
-                    interactive={true}
-                    render={attrs => (
-                        <MenuDropdown toggleConfirmModal={toggleConfirmModal}/>
-                      )}
-                >
-                    <div className="column-dropdown-actions">
-                        <i className="fa-solid fa-bars"></i>
-                    </div>
-                </Tippy>
+                <div className="column-dropdown-actions">
+                    <MenuDropdown toggleConfirmModal={toggleConfirmModal}
+                        handleToggleAddCard={handleToggleAddCard}
+                    />                   
+                </div>
+
             </header>
             <div className="card-list">
                 <Container
@@ -90,12 +137,45 @@ function Column({column,onCardDrop,onUpdateColumn}) {
                         </Draggable>
                     )}           
                 </Container>    
-                
+                {
+                    isCardFormOpen && 
+                    <div className="add-new-card-container">
+                        <textarea name=""
+                            type="text" 
+                            placeholder='Enter a title for this card'
+                            className="area-input-new-card"
+                            rows="4"
+                            resize={'none'}
+                            ref={newCardInputRef}
+                            value={cardTitle}
+                            onKeyUp={e=>
+                                e.key==="Enter" && addNewCard()
+                            }
+                            onChange={e=>setCardTitle(e.target.value)}
+                        />
+                        <button className="add-btn"
+                            ref={addCardBtnRef}
+                            onClick={addNewCard}
+                            >
+                                Add card
+                        </button>
+                        <span className="cancel-btn"
+                                onClick={handleToggleAddCard}
+                        >
+                                <i className="fa-solid fa-x icon"></i>
+                        </span>
+                    </div>
+                }
             </div>
             <footer >
-                <div className="footer-actions">
-                    <i className="fa-solid fa-plus icon"></i>Another card
-                </div>
+                {   
+                    !isCardFormOpen && 
+                        <div className="footer-actions"
+                            onClick={handleToggleAddCard}
+                        >
+                            <i className="fa-solid fa-plus icon"></i>Another card
+                        </div>
+                }
             </footer>
             {showModal && <Modal
                 content={`Are you sure want to remove ${column.title} ?`}
@@ -103,7 +183,7 @@ function Column({column,onCardDrop,onUpdateColumn}) {
                 toggleConfirmModal={toggleConfirmModal}
                 onConfirmModal={onConfirmModal}
             />}
-          </div>
+        </div>
      );
 }
 

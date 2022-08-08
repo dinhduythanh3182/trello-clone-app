@@ -1,40 +1,34 @@
 @import './_settings.scss';
 
-.menu-dropdown{
-    width: 220px;
-    height: fit-content;
-    padding: 10px 12px;
-    background-color: white;
-    box-shadow: -1px -1px 3px rgba(0,0,0,.3);
-    border-radius:$column-border-radius;
-    .menu-list{
-        display: flex;
-        flex-direction: column;
-        align-items: start;
-        margin: 0;
-        padding: 0;
-        list-style: none;
-
+.dropdown-btn{
+    height: calc(100% - #{$gap});
+    padding: 4px 12px;
+    border: none;
+    box-shadow: none !important;
+    outline: none;
+    background-color: $bg-list-color;
+    color: $text-color ;
+    &:hover{
+        background-color: darken($bg-list-color,5) ;
+        color: $text-color;
     }
-    .menu-item{
-        width: calc(100% - 24px);
-        margin: 4px 0;
-        padding: 0 12px;
-        border-radius:$column-border-radius;
-        font-weight: 500;
-        background-color: rgb(228, 228, 228);
-        box-shadow: 1px 1px 2px rgba(0,0,0,.2);
-        cursor: pointer;
-        transition: all 0.2s linear;
-        &:hover{
-            background-color: rgb(203, 203, 203);
-        }
-        &.danger{
-            background-color: rgb(224, 145, 145);
-            &:hover{
-                background-color: rgb(221, 37, 37);
-                color: white;
-            }
-        }
+    &:focus-within{
+        background-color: darken($bg-list-color,5) ;
+    }   
+}
+div.menu-list{
+    padding: 0px 4px;
+    border-radius:$card-border-radius ;
+    font-size: 13px;
+}
+a.menu-item{
+    margin: 4px 0px ;
+    padding: 4px $gap;
+    border-radius: $card-border-radius;
+    &:active{
+        background-color: darken($bg-list-color,5)
     }
+}
+hr.item-divider{
+    margin: 0px ;
 }

@@ -6,7 +6,7 @@
     border-radius: $card-border-radius;
     box-shadow: 0 1px 1px rgba(0,0,0,0.1);
     cursor: pointer;
-    margin-bottom: $gap;
+    margin-bottom: 6px;
     img{
       display: block;
       width: calc(100% + 2 * #{$gap});
